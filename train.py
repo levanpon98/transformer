@@ -74,6 +74,7 @@ if ckpt_manager.latest_checkpoint:
 EPOCHS = 20
 
 
+@tf.function
 def train_step(inp, tar):
     tar_inp = tar[:, :-1]
     tar_real = tar[:, 1:]
