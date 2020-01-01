@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6fe89c9-180c-4516-884b-a8e383d76b93" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/model/Transformer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/masking.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/preprocess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/translation_transformer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/translation_transformer.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Optimizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluate.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inference.py" beforeDir="false" afterPath="$PROJECT_DIR$/inference.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

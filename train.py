@@ -6,8 +6,8 @@ from utils.masking import *
 import time
 
 
-path_input = 'D:/Kaggle/data/viet-eng/train.en'
-path_target = 'D:/Kaggle/data/viet-eng/train.vi'
+path_input = './data/train.en'
+path_target = './data/train.vi'
 num_examples = 133317
 
 BATCH_SIZE = 64
