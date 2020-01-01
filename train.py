@@ -5,6 +5,8 @@ from utils.preprocess import *
 from utils.masking import *
 import time
 
+tf.enable_eager_execution()
+
 
 path_input = './data/train.en'
 path_target = './data/train.vi'
