@@ -10,7 +10,7 @@ path_input = './data/train.en'
 path_target = './data/train.vi'
 num_examples = 133317
 
-BATCH_SIZE = 32
+BATCH_SIZE = 128
 BUFFER_SIZE = 20000
 
 # Try experimenting with the size of that dataset
