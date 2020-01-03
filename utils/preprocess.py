@@ -24,7 +24,6 @@ def preprocess_sentence(sentence):
     sentence = re.sub(r'&quot;', '"', sentence)
     sentence = sentence.strip().rstrip()
     # sentence = '<start>' + sentence + '<end>'
-    print(sentence)
     return sentence
 
 
