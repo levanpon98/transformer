@@ -72,46 +72,46 @@ if ckpt_manager.latest_checkpoint:
 EPOCHS = 20
 
 
-@tf.function
-def train_step(inp, tar):
-    tar_inp = tar[:, :-1]
-    tar_real = tar[:, 1:]
-
-    enc_padding_mask, combined_mask, dec_padding_mask = create_masks(inp, tar_inp)
-
-    with tf.GradientTape() as tape:
-        predictions, _ = transformer(inp, tar_inp,
-                                     True,
-                                     enc_padding_mask,
-                                     combined_mask,
-                                     dec_padding_mask)
-        loss = loss_function(tar_real, predictions)
-
-    gradients = tape.gradient(loss, transformer.trainable_variables)
-    optimizer.apply_gradients(zip(gradients, transformer.trainable_variables))
-
-    train_loss(loss)
-    train_accuracy(tar_real, predictions)
-
-
-for epoch in range(EPOCHS):
-    start = time.time()
-
-    train_loss.reset_states()
-    train_accuracy.reset_states()
-
-    # inp -> vietnamese, tar -> english
-    for (batch, (inp, tar)) in enumerate(dataset.take(steps_per_epoch)):
-        train_step(inp, tar)
-
-        if batch % 50 == 0:
-            print('Epoch {} Batch {} Loss {:.4f} Accuracy {:.4f}'.format(epoch + 1, batch, train_loss.result(),
-                                                                         train_accuracy.result()))
-
-    if (epoch + 1) % 5 == 0:
-        ckpt_save_path = ckpt_manager.save()
-        print('Saving checkpoint for epoch {} at {}'.format(epoch + 1, ckpt_save_path))
-
-    print('Epoch {} Loss {:.4f} Accuracy {:.4f}'.format(epoch + 1, train_loss.result(), train_accuracy.result()))
-
-    print('Time taken for 1 epoch: {} secs\n'.format(time.time() - start))
+# @tf.function
+# def train_step(inp, tar):
+#     tar_inp = tar[:, :-1]
+#     tar_real = tar[:, 1:]
+#
+#     enc_padding_mask, combined_mask, dec_padding_mask = create_masks(inp, tar_inp)
+#
+#     with tf.GradientTape() as tape:
+#         predictions, _ = transformer(inp, tar_inp,
+#                                      True,
+#                                      enc_padding_mask,
+#                                      combined_mask,
+#                                      dec_padding_mask)
+#         loss = loss_function(tar_real, predictions)
+#
+#     gradients = tape.gradient(loss, transformer.trainable_variables)
+#     optimizer.apply_gradients(zip(gradients, transformer.trainable_variables))
+#
+#     train_loss(loss)
+#     train_accuracy(tar_real, predictions)
+#
+#
+# for epoch in range(EPOCHS):
+#     start = time.time()
+#
+#     train_loss.reset_states()
+#     train_accuracy.reset_states()
+#
+#     # inp -> vietnamese, tar -> english
+#     for (batch, (inp, tar)) in enumerate(dataset.take(steps_per_epoch)):
+#         train_step(inp, tar)
+#
+#         if batch % 50 == 0:
+#             print('Epoch {} Batch {} Loss {:.4f} Accuracy {:.4f}'.format(epoch + 1, batch, train_loss.result(),
+#                                                                          train_accuracy.result()))
+#
+#     if (epoch + 1) % 5 == 0:
+#         ckpt_save_path = ckpt_manager.save()
+#         print('Saving checkpoint for epoch {} at {}'.format(epoch + 1, ckpt_save_path))
+#
+#     print('Epoch {} Loss {:.4f} Accuracy {:.4f}'.format(epoch + 1, train_loss.result(), train_accuracy.result()))
+#
+#     print('Time taken for 1 epoch: {} secs\n'.format(time.time() - start))

@@ -3,7 +3,6 @@ import tensorflow as tf
 import io
 import re
 import unicodedata
-import tensorflow_datasets as tfds
 
 
 def tokenize(lang):
@@ -19,13 +18,13 @@ def tokenize(lang):
 
 def preprocess_sentence(sentence):
     sentence = sentence.lower()
-    sentence = re.sub(r' .', '.', sentence)
+    sentence = re.sub(r' \.', '.', sentence)
     sentence = re.sub(r' , ', ', ', sentence)
-    sentence = re.sub(r'&apos;', '\'', sentence)
+    sentence = re.sub(r' &apos;', '\'', sentence)
     sentence = re.sub(r'&quot;', '"', sentence)
     sentence = sentence.strip().rstrip()
     # sentence = '<start>' + sentence + '<end>'
-
+    print(sentence)
     return sentence
 
 
