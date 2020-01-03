@@ -19,10 +19,10 @@ def tokenize(lang):
 
 def preprocess_sentence(sentence):
     sentence = sentence.lower()
-    # sentence = re.sub(r' .', '.', sentence)
-    # sentence = re.sub(r' , ', ', ', sentence)
-    # sentence = re.sub(r'&apos;', '\'', sentence)
-    # sentence = re.sub(r'&quot;', '"', sentence)
+    sentence = re.sub(r' .', '.', sentence)
+    sentence = re.sub(r' , ', ', ', sentence)
+    sentence = re.sub(r'&apos;', '\'', sentence)
+    sentence = re.sub(r'&quot;', '"', sentence)
     sentence = sentence.strip().rstrip()
     # sentence = '<start>' + sentence + '<end>'
 
