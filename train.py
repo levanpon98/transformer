@@ -7,7 +7,6 @@ import time
 
 tf.enable_eager_execution()
 
-
 path_input = './data/train.en'
 path_target = './data/train.vi'
 num_examples = 133317
@@ -33,7 +32,6 @@ d_model = 128
 dff = 512
 num_heads = 8
 dropout_rate = 0.1
-#
 
 dataset = tf.data.Dataset.from_tensor_slices((input_tensor_train, target_tensor_train)).shuffle(BUFFER_SIZE)
 dataset = dataset.batch(BATCH_SIZE, drop_remainder=True)
@@ -72,7 +70,6 @@ if ckpt_manager.latest_checkpoint:
     ckpt.restore(ckpt_manager.latest_checkpoint)
     print('Latest checkpoint restored!!')
 
-
 EPOCHS = 20
 
 
@@ -104,21 +101,18 @@ for epoch in range(EPOCHS):
     train_loss.reset_states()
     train_accuracy.reset_states()
 
-    # inp -> portuguese, tar -> english
+    # inp -> vietnamese, tar -> english
     for (batch, (inp, tar)) in enumerate(dataset.take(steps_per_epoch)):
         train_step(inp, tar)
 
         if batch % 50 == 0:
-            print('Epoch {} Batch {} Loss {:.4f} Accuracy {:.4f}'.format(
-                epoch + 1, batch, train_loss.result(), train_accuracy.result()))
+            print('Epoch {} Batch {} Loss {:.4f} Accuracy {:.4f}'.format(epoch + 1, batch, train_loss.result(),
+                                                                         train_accuracy.result()))
 
     if (epoch + 1) % 5 == 0:
         ckpt_save_path = ckpt_manager.save()
-        print('Saving checkpoint for epoch {} at {}'.format(epoch + 1,
-                                                            ckpt_save_path))
+        print('Saving checkpoint for epoch {} at {}'.format(epoch + 1, ckpt_save_path))
 
-    print('Epoch {} Loss {:.4f} Accuracy {:.4f}'.format(epoch + 1,
-                                                        train_loss.result(),
-                                                        train_accuracy.result()))
+    print('Epoch {} Loss {:.4f} Accuracy {:.4f}'.format(epoch + 1, train_loss.result(), train_accuracy.result()))
 
     print('Time taken for 1 epoch: {} secs\n'.format(time.time() - start))

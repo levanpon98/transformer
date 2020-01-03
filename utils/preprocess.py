@@ -7,24 +7,22 @@ import tensorflow_datasets as tfds
 
 
 def tokenize(lang):
-    lang_tokenizer = tf.keras.preprocessing.text.Tokenizer(
-        filters='')
+    lang_tokenizer = tf.keras.preprocessing.text.Tokenizer(filters='')
     lang_tokenizer.fit_on_texts(lang)
 
     tensor = lang_tokenizer.texts_to_sequences(lang)
 
-    tensor = tf.keras.preprocessing.sequence.pad_sequences(tensor,
-                                                           padding='post')
+    tensor = tf.keras.preprocessing.sequence.pad_sequences(tensor, padding='post')
 
     return tensor, lang_tokenizer
 
 
 def preprocess_sentence(sentence):
     sentence = sentence.lower()
-    sentence = re.sub(r' .', '.', sentence)
-    sentence = re.sub(r' , ', ', ', sentence)
-    sentence = re.sub(r'&apos;', '\'', sentence)
-    sentence = re.sub(r'&quot;', '"', sentence)
+    # sentence = re.sub(r' .', '.', sentence)
+    # sentence = re.sub(r' , ', ', ', sentence)
+    # sentence = re.sub(r'&apos;', '\'', sentence)
+    # sentence = re.sub(r'&quot;', '"', sentence)
     sentence = sentence.strip().rstrip()
     # sentence = '<start>' + sentence + '<end>'
 

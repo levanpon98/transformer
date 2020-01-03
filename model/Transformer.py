@@ -3,66 +3,6 @@ import numpy as np
 from utils.masking import *
 
 
-# class Linear(tf.keras.Layer):
-#
-#     def __init__(self, units=32, input_dim=32):
-#         super(Linear, self).__init__()
-#         self.w = self.add_weight(shape=(input_dim, units),
-#                                  initializer='random_normal',
-#                                  trainable=True)
-#         self.b = self.add_weight(shape=(units,),
-#                                  initializer='zeros',
-#                                  trainable=True)
-#
-#     def __call__(self, inputs):
-#         return tf.matmul(inputs, self.w) + self.b
-#
-#
-# class ScaledDotProductAttention:
-#     def __init__(self, dropout_rate=0.1):
-#         self.dropout_rate = dropout_rate
-#
-#     @tf.function
-#     def __call__(self, query, key, value, mask=None, training=True):
-#         d_k = key.get_shape()[-1]
-#         assert query.get_shape()[-1] == d_k
-#
-#         logits = tf.matmul(query, tf.transpose(key, perm=[0, 2, 1]))
-#         logits = logits / tf.square(d_k)
-#
-#         if mask is not None:
-#             logits += (mask * -1e9)
-#         logits = tf.nn.softmax(logits, axis=-1)
-#         if training:
-#             logits = tf.nn.dropout(logits, rate=self.dropout_rate)
-#         output = tf.matmul(logits, value)
-#         return output
-#
-#
-# class AttentionHead:
-#
-#     def __init__(self, d_model, d_feature, dropout=0.1):
-#         self.qs = Linear(d_model, d_feature)
-#         self.ks = Linear(d_model, d_feature)
-#         self.vs = Linear(d_model, d_feature)
-#         self.attention = ScaledDotProductAttention(dropout)
-#
-#     @tf.function
-#     def __call__(self, query, key, value):
-#         Q = self.qs(query)
-#         K = self.ks(key)
-#         V = self.vs(value)
-#
-#         x = self.attention(Q, K, V)
-#
-#         return x
-#
-#
-# class MultiHeadAttention:
-#     def __init__(self, n_head, d_k, d_v, dropout_rate=0.1, use_norm=True):
-#         self.n_head = n_head
-#         self.d_k = d_k
-
 def scaled_dot_product_attention(q, k, v, mask):
     """Calculate the attention weights.
     q, k, v must have matching leading dimensions.
@@ -143,8 +83,7 @@ class MultiHeadAttention(tf.keras.layers.Layer):
 
         # scaled_attention.shape == (batch_size, num_heads, seq_len_q, depth)
         # attention_weights.shape == (batch_size, num_heads, seq_len_q, seq_len_k)
-        scaled_attention, attention_weights = scaled_dot_product_attention(
-            q, k, v, mask)
+        scaled_attention, attention_weights = scaled_dot_product_attention(q, k, v, mask)
 
         scaled_attention = tf.transpose(scaled_attention,
                                         perm=[0, 2, 1, 3])  # (batch_size, seq_len_q, num_heads, depth)
@@ -304,8 +243,7 @@ class Transformer(tf.keras.Model):
         enc_output = self.encoder(inp, training, enc_padding_mask)  # (batch_size, inp_seq_len, d_model)
 
         # dec_output.shape == (batch_size, tar_seq_len, d_model)
-        dec_output, attention_weights = self.decoder(
-            tar, enc_output, training, look_ahead_mask, dec_padding_mask)
+        dec_output, attention_weights = self.decoder(tar, enc_output, training, look_ahead_mask, dec_padding_mask)
 
         final_output = self.final_layer(dec_output)  # (batch_size, tar_seq_len, target_vocab_size)
 
